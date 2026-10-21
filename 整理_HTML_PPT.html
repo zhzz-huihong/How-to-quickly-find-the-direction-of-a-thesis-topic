@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="研究生的个人论文流水线：从发现问题到可行性验证">
+  <title>研究生的个人论文流水线｜HTML PPT</title>
+  <style>
+    :root {
+      --ink: #14201b;
+      --muted: #5d6c64;
+      --paper: #f7f3e9;
+      --paper-2: #efe8da;
+      --green: #23654d;
+      --green-dark: #173f31;
+      --sage: #b8cbbd;
+      --amber: #d18a2e;
+      --coral: #bc5946;
+      --blue: #3c7087;
+      --line: rgba(20, 32, 27, .14);
+      --shadow: 0 24px 70px rgba(17, 35, 27, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    body {
+      color: var(--ink);
+      background: #10271f;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; }
+
+    .deck { position: relative; width: 100%; height: 100%; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(26px, 4.2vw, 68px) clamp(28px, 5.8vw, 92px) clamp(22px, 3.5vw, 50px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 95% 5%, rgba(184, 203, 189, .48), transparent 31%),
+        linear-gradient(135deg, var(--paper), #fbf8f0 64%, var(--paper-2));
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(4%);
+      transition: opacity .34s ease, transform .34s ease, visibility .34s;
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide::after {
+      content: "";
+      position: absolute;
+      right: -13vw;
+      bottom: -21vw;
+      width: 42vw;
+      height: 42vw;
+      border: 1px solid rgba(35, 101, 77, .14);
+      border-radius: 50%;
+      box-shadow: 0 0 0 6vw rgba(35, 101, 77, .035), 0 0 0 12vw rgba(35, 101, 77, .025);
+      pointer-events: none;
+    }
+
+    .kicker {
+      position: relative;
+      z-index: 2;
+      color: var(--green);
+      font-size: clamp(11px, 1vw, 16px);
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: min(100%, 1420px);
+      margin: 0 auto;
+    }
+    .footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: clamp(10px, .9vw, 13px);
+    }
+    .slide-no { color: var(--green); font-weight: 900; letter-spacing: .08em; }
+
+    h1, h2, h3, .serif {
+      font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+    }
+    h1 {
+      max-width: 1150px;
+      margin: 14px 0 22px;
+      font-size: clamp(46px, 7.2vw, 108px);
+      line-height: 1.02;
+      letter-spacing: -.05em;
+    }
+    h2 {
+      max-width: 1240px;
+      margin: 8px 0 clamp(20px, 3vw, 40px);
+      font-size: clamp(32px, 4.7vw, 72px);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+    h3 { margin: 0 0 10px; font-size: clamp(19px, 2vw, 29px); line-height: 1.28; }
+    p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.55vw, 24px); line-height: 1.65; }
+    strong { color: var(--ink); }
+    .accent { color: var(--green); }
+    .amber { color: var(--amber); }
+    .coral { color: var(--coral); }
+    .lead { max-width: 1030px; font-size: clamp(19px, 2vw, 31px); line-height: 1.55; }
+    .small { font-size: clamp(13px, 1.15vw, 17px); }
+    .source { margin-top: 18px; font-size: 12px; color: #718078; }
+    .source a { text-decoration-color: rgba(35,101,77,.35); text-underline-offset: 3px; }
+
+    .title-rule { width: min(390px, 42vw); height: 7px; margin: 20px 0 26px; background: linear-gradient(90deg, var(--green), var(--amber)); border-radius: 99px; }
+    .title-meta { display: flex; flex-wrap: wrap; gap: 12px 28px; color: var(--muted); font-size: clamp(14px, 1.3vw, 19px); }
+    .title-meta b { color: var(--green-dark); }
+
+    .split { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 82px); align-items: center; }
+    .split.equal { grid-template-columns: 1fr 1fr; }
+    .rule-left { padding-left: clamp(18px, 2.4vw, 34px); border-left: 7px solid var(--amber); }
+    .big-question { font: 800 clamp(30px, 4vw, 62px)/1.23 Georgia, "Noto Serif SC", serif; color: var(--green-dark); }
+    .marginalia { margin-top: 22px; color: var(--coral); font-size: clamp(14px, 1.2vw, 18px); font-weight: 800; }
+
+    .pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(8px, 1.1vw, 16px); margin-top: 10px; }
+    .pipe-step {
+      position: relative;
+      min-height: 152px;
+      padding: 22px 18px;
+      border-top: 6px solid var(--green);
+      background: rgba(255, 255, 255, .55);
+      box-shadow: 0 12px 36px rgba(25, 54, 42, .07);
+    }
+    .pipe-step:nth-child(n+6) { border-top-color: var(--sage); }
+    .pipe-step:not(:nth-child(5)):not(:last-child)::after {
+      content: "›";
+      position: absolute;
+      right: -13px;
+      top: 48%;
+      z-index: 4;
+      color: var(--amber);
+      font-size: 30px;
+      font-weight: 900;
+      transform: translateY(-50%);
+    }
+    .pipe-step b { display: block; color: var(--green); font-size: clamp(16px, 1.5vw, 22px); }
+    .pipe-step span { display: block; margin-top: 12px; color: var(--muted); font-size: clamp(12px, 1vw, 15px); line-height: 1.5; }
+    .pipeline.tail { grid-template-columns: repeat(5, 1fr); margin-top: 18px; }
+    .pipeline.tail .pipe-step { min-height: 112px; border-top-color: var(--blue); }
+    .pipeline.tail .pipe-step b { color: var(--blue); }
+    .phase-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .phase-labels div { padding: 10px 16px; font-size: 13px; font-weight: 900; letter-spacing: .08em; }
+    .phase-labels div:first-child { color: #fff; background: var(--green); }
+    .phase-labels div:last-child { color: var(--green-dark); background: rgba(184,203,189,.55); }
+
+    .burden { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 2vw, 28px); }
+    .burden-item { padding-top: 18px; border-top: 4px solid var(--amber); }
+    .burden-item b { display: block; font: 800 clamp(21px, 2.4vw, 34px)/1.25 Georgia, "Noto Serif SC", serif; }
+    .burden-item p { margin-top: 10px; font-size: clamp(13px, 1.2vw, 18px); }
+    .callout { margin-top: 30px; padding: 19px 24px; border-left: 6px solid var(--green); background: rgba(255,255,255,.58); color: var(--green-dark); font-size: clamp(17px, 1.6vw, 24px); line-height: 1.55; }
+
+    .balance { display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(20px, 3vw, 46px); align-items: center; }
+    .balance-side { min-height: 280px; padding: clamp(22px, 3vw, 42px); background: rgba(255,255,255,.62); border-top: 7px solid var(--green); }
+    .balance-side:last-child { border-top-color: var(--amber); }
+    .balance-side .num { display: block; margin-bottom: 16px; color: var(--green); font: 900 clamp(48px, 6vw, 88px)/1 Georgia, serif; }
+    .balance-side:last-child .num { color: var(--amber); }
+    .balance-side p { margin-top: 12px; }
+    .versus { color: var(--coral); font: 900 clamp(22px, 2vw, 34px)/1 Georgia, serif; }
+    .cycle { margin-top: 26px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; color: var(--green-dark); font-size: clamp(14px, 1.25vw, 19px); font-weight: 800; }
+    .cycle i { color: var(--amber); font-size: 24px; font-style: normal; }
+
+    .sequence { display: flex; align-items: stretch; gap: 0; margin: 18px 0 28px; }
+    .seq-item { position: relative; flex: 1; padding: 25px 20px; border-top: 5px solid var(--blue); background: rgba(255,255,255,.62); }
+    .seq-item + .seq-item { margin-left: 26px; }
+    .seq-item + .seq-item::before { content: "→"; position: absolute; left: -25px; top: 40%; color: var(--amber); font-size: 24px; font-weight: 900; }
+    .seq-item b { display: block; color: var(--blue); font-size: clamp(17px, 1.65vw, 24px); }
+    .seq-item span { display: block; margin-top: 8px; color: var(--muted); font-size: clamp(12px, 1.05vw, 16px); line-height: 1.45; }
+    .warning-line { padding: 16px 20px; border-left: 6px solid var(--coral); color: var(--coral); background: rgba(188,89,70,.07); font-size: clamp(14px, 1.3vw, 19px); font-weight: 800; }
+
+    .stats { display: grid; grid-template-columns: .9fr .9fr 1.5fr; gap: clamp(18px, 3vw, 46px); align-items: stretch; }
+    .stat { display: flex; flex-direction: column; justify-content: center; min-height: 260px; padding: 28px; border-top: 7px solid var(--green); background: rgba(255,255,255,.62); }
+    .stat:nth-child(2) { border-top-color: var(--amber); }
+    .stat strong { color: var(--green); font: 900 clamp(58px, 7vw, 108px)/.95 Georgia, serif; }
+    .stat:nth-child(2) strong { color: var(--amber); }
+    .stat p { margin-top: 14px; }
+    .stat.note { border-top-color: var(--coral); }
+    .stat.note strong { font-size: clamp(26px, 3vw, 46px); color: var(--coral); }
+
+    .observe { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(26px, 4vw, 68px); }
+    .observe-side { padding-top: 24px; border-top: 7px solid var(--green); }
+    .observe-side:last-child { border-top-color: var(--amber); }
+    .observe-side .distance { color: var(--green); font: 900 clamp(48px, 6vw, 94px)/1 Georgia, serif; }
+    .observe-side:last-child .distance { color: var(--amber); }
+    .observe-side h3 { margin-top: 18px; }
+    .observe-side ul { margin: 14px 0 0; padding-left: 1.2em; color: var(--muted); font-size: clamp(14px, 1.3vw, 19px); line-height: 1.75; }
+
+    .observer-scene {
+      position: relative;
+      height: min(58vh, 570px);
+      min-height: 420px;
+      overflow: hidden;
+      border: 1px solid rgba(35,101,77,.18);
+      background: linear-gradient(180deg, #dcece7 0 55%, #e8dfcc 55% 62%, #d4c7aa 62% 100%);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .observer-scene::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 55%;
+      height: 4px;
+      background: rgba(35,101,77,.18);
+    }
+    .scene-world {
+      position: absolute;
+      inset: 0;
+      transform-origin: 54% 55%;
+      transition: transform 1.05s cubic-bezier(.2,.75,.18,1), filter .6s ease;
+    }
+    .mode-far .scene-world { transform: scale(1.55) translateY(6%); }
+    .mode-near .scene-world { transform: scale(2.55) translate(-17%, 13%); }
+    .scene-distance {
+      position: absolute;
+      left: 50%;
+      top: 13%;
+      color: rgba(23,63,49,.55);
+      font: 900 clamp(22px, 3vw, 42px)/1 Georgia, serif;
+      transform: translateX(-50%);
+      transition: opacity .35s ease;
+    }
+    .mode-near .scene-distance { opacity: 0; }
+    .far-crowd {
+      position: absolute;
+      left: 50%;
+      top: 39%;
+      display: flex;
+      align-items: end;
+      gap: clamp(12px, 2vw, 30px);
+      transform: translate(-50%, -50%);
+      transition: opacity .45s ease;
+    }
+    .mode-near .far-crowd { opacity: 0; }
+    .walker {
+      display: grid;
+      justify-items: center;
+      font-size: clamp(25px, 3.1vw, 47px);
+      filter: grayscale(.15);
+      animation: walkerBob 1.1s ease-in-out infinite alternate;
+    }
+    .walker i { font-style: normal; line-height: 1; }
+    .walker small {
+      margin-top: 5px;
+      padding: 3px 7px;
+      color: var(--green-dark);
+      background: rgba(255,255,255,.72);
+      font-size: clamp(8px, .75vw, 11px);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .walker:nth-child(2) { animation-delay: -.35s; transform: rotate(-6deg); }
+    .walker:nth-child(3) { animation-delay: -.7s; transform: translateY(-5px); }
+    .walker:nth-child(4) { animation-delay: -.15s; transform: rotate(8deg); }
+    .near-person {
+      position: absolute;
+      left: 64%;
+      top: 50%;
+      display: grid;
+      justify-items: center;
+      font-size: clamp(56px, 7vw, 108px);
+      transform: translate(-50%, -50%) scale(.38);
+      opacity: .32;
+      transition: opacity .55s ease, transform 1.05s cubic-bezier(.2,.75,.18,1);
+      animation: walkerBob 1.15s ease-in-out infinite alternate;
+    }
+    .near-person > span { line-height: 1; }
+    .near-person small { margin-top: 7px; padding: 5px 9px; color: var(--green-dark); background: rgba(255,255,255,.85); font-size: clamp(8px, .72vw, 11px); font-weight: 900; white-space: nowrap; }
+    .mode-far .near-person { opacity: 0; }
+    .mode-near .near-person { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .scene-road {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: 13%;
+      height: 10%;
+      border-top: 3px dashed rgba(255,255,255,.68);
+      transform: perspective(240px) rotateX(58deg);
+    }
+    .observer-choices {
+      position: absolute;
+      left: 4%;
+      right: 4%;
+      bottom: 4%;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .mode-far .observer-choices, .mode-near .observer-choices { opacity: 0; pointer-events: none; transform: translateY(18px); }
+    .observer-choice {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      width: min(42%, 420px);
+      padding: 15px 19px;
+      border: 1px solid rgba(20,32,27,.16);
+      color: var(--ink);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 15px 40px rgba(20,32,27,.13);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .observer-choice:hover, .observer-choice:focus-visible { transform: translateY(-5px); border-color: var(--green); outline: none; }
+    .observer-avatar { font-size: clamp(42px, 5vw, 72px); }
+    .observer-choice b { display: block; color: var(--green-dark); font-size: clamp(17px, 1.5vw, 22px); }
+    .observer-choice span:last-child { display: block; margin-top: 4px; color: var(--muted); font-size: clamp(12px, 1vw, 15px); }
+    .observer-choice.near b { color: #9a611d; }
+    .scene-prompt {
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
+      z-index: 4;
+      color: var(--green-dark);
+      font-size: clamp(13px, 1.15vw, 17px);
+      font-weight: 900;
+      transform: translateX(-50%);
+      transition: opacity .3s ease;
+    }
+    .mode-far .scene-prompt, .mode-near .scene-prompt { opacity: 0; }
+    .thought-bubble {
+      position: absolute;
+      z-index: 8;
+      width: min(47%, 590px);
+      padding: clamp(19px, 2.4vw, 32px);
+      border-radius: 44px;
+      color: var(--ink);
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 22px 60px rgba(20,32,27,.18);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px) scale(.94);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .thought-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.95);
+      box-shadow: 19px 22px 0 -8px rgba(255,255,255,.95);
+    }
+    .far-thought { left: 5%; top: 7%; }
+    .far-thought::after { left: 22%; }
+    .near-thought { right: 4%; top: 6%; }
+    .near-thought::after { right: 20%; }
+    .mode-far.show-thought .far-thought, .mode-near.show-thought .near-thought { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+    .thought-bubble h3 { margin-bottom: 12px; color: var(--green-dark); }
+    .thinking-avatar {
+      position: absolute;
+      z-index: 7;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      max-width: 300px;
+      padding: 12px 17px;
+      border: 1px solid rgba(20,32,27,.13);
+      color: var(--green-dark);
+      background: rgba(255,255,255,.91);
+      box-shadow: 0 16px 45px rgba(20,32,27,.16);
+      opacity: 0;
+      transform: translateY(18px) scale(.92);
+      transition: opacity .4s ease .48s, transform .4s ease .48s;
+    }
+    .thinking-avatar .head { font-size: clamp(48px, 5.4vw, 78px); animation: thinkingPulse 1.4s ease-in-out infinite alternate; }
+    .thinking-avatar b { display: block; font-size: clamp(14px, 1.25vw, 18px); }
+    .thinking-avatar span:last-child { display: block; margin-top: 4px; color: var(--muted); font-size: clamp(11px, .9vw, 14px); }
+    .far-head { left: 5%; bottom: 7%; }
+    .near-head { right: 5%; bottom: 7%; }
+    .mode-far .far-head, .mode-near .near-head { opacity: 1; transform: translateY(0) scale(1); }
+
+    .mind-reel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .far-thought .mind-reel { grid-template-columns: repeat(3, 1fr); }
+    .mind-scene {
+      min-height: 103px;
+      padding: 10px 7px;
+      overflow: hidden;
+      border-top: 3px solid rgba(35,101,77,.3);
+      background: #f3f6ef;
+      text-align: center;
+    }
+    .mind-scene b { display: block; margin-top: 6px; color: var(--ink); font-size: clamp(11px, .88vw, 14px); }
+    .mind-scene small { display: block; margin-top: 2px; color: var(--muted); font-size: clamp(9px, .72vw, 11px); }
+    .mind-actor { position: relative; display: inline-flex; align-items: end; justify-content: center; min-width: 62px; min-height: 56px; font-size: clamp(29px, 3vw, 44px); }
+    .mind-actor.walk { animation: mindWalk 1.25s ease-in-out infinite alternate; }
+    .mind-actor.jump { animation: mindJump 1.05s ease-in-out infinite; }
+    .mind-actor.flip { animation: mindFlip 1.8s ease-in-out infinite; }
+    .mind-actor.stilts { padding-bottom: 12px; animation: stiltSway 1.4s ease-in-out infinite alternate; }
+    .mind-actor.stilts::after { content: "│  │"; position: absolute; left: 50%; bottom: -7px; color: #8c6032; font: 900 29px/1 monospace; transform: translateX(-50%); }
+    .mind-prop { position: absolute; right: -6px; top: 4px; font-size: 20px; font-style: normal; }
+    .mind-prop.single { animation: propPulse 1.1s ease-in-out infinite alternate; }
+    .mind-prop.cycle { opacity: 0; animation: propCycle 3.3s linear infinite; }
+    .mind-prop.c2 { animation-delay: 1.1s; }
+    .mind-prop.c3 { animation-delay: 2.2s; }
+    .mind-prop.pair { left: 50%; right: auto; top: auto; bottom: -3px; transform: translateX(-50%); animation-duration: 2.4s; }
+    .mind-prop.p2 { animation-delay: 1.2s; }
+    .thought-ending { margin-top: 12px; color: var(--coral); font-size: clamp(12px, 1vw, 15px); font-weight: 900; }
+    .scene-reset {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      z-index: 10;
+      padding: 10px 15px;
+      border: 1px solid rgba(255,255,255,.45);
+      color: #fff;
+      background: rgba(23,63,49,.86);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .mode-far .scene-reset, .mode-near .scene-reset { opacity: 1; pointer-events: auto; }
+    @keyframes walkerBob { from { margin-top: -3px; } to { margin-top: 5px; } }
+    @keyframes thinkingPulse { from { transform: rotate(-3deg) scale(.98); } to { transform: rotate(3deg) scale(1.04); } }
+    @keyframes mindWalk { from { transform: translateX(-10px) rotate(-4deg); } to { transform: translateX(10px) rotate(4deg); } }
+    @keyframes mindJump { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    @keyframes mindFlip { 0%,35% { transform: rotate(0); } 70%,100% { transform: rotate(180deg); } }
+    @keyframes stiltSway { from { transform: rotate(-3deg) translateY(0); } to { transform: rotate(3deg) translateY(-4px); } }
+    @keyframes propPulse { from { transform: scale(.88) rotate(-7deg); } to { transform: scale(1.08) rotate(6deg); } }
+    @keyframes propCycle { 0%,28% { opacity: 1; transform: translateY(0) scale(1); } 31%,100% { opacity: 0; transform: translateY(-7px) scale(.82); } }
+
+    .story-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .svg-thought-layer { z-index: 6; overflow: visible; pointer-events: none; }
+    .svg-distance-label { fill: rgba(23,63,49,.55); font: 900 42px Georgia, serif; text-anchor: middle; }
+    .svg-behavior-label, .svg-near-label {
+      fill: #173f31;
+      font: 900 17px "Microsoft YaHei", sans-serif;
+      text-anchor: middle;
+      paint-order: stroke;
+      stroke: rgba(255,255,255,.92);
+      stroke-width: 8px;
+      stroke-linejoin: round;
+    }
+    .svg-near-label { font-size: 13px; stroke-width: 5px; }
+    .svg-far-existing, .svg-near-existing { transition: opacity .42s ease; }
+    .svg-near-existing { opacity: .25; }
+    .mode-far .svg-near-existing { opacity: 0; }
+    .mode-near .svg-far-existing { opacity: 0; }
+    .mode-near .svg-near-existing { opacity: 1; }
+    .svg-figure { transform-box: fill-box; transform-origin: center; }
+    .svg-walk { animation: svgWalk 1.05s ease-in-out infinite alternate; }
+    .svg-hop { animation: svgHop 1.15s ease-in-out infinite; }
+    .svg-double-hop { animation: svgDoubleHop 1.25s ease-in-out infinite; }
+    .svg-moonwalk { animation: svgMoonwalk 1.7s ease-in-out infinite alternate; }
+    .svg-figure .leg-a, .svg-figure .leg-b, .svg-figure .arm-a, .svg-figure .arm-b { transform-box: fill-box; transform-origin: top center; }
+    .svg-walk .leg-a, .svg-walk .arm-b { animation: limbForward .72s ease-in-out infinite alternate; }
+    .svg-walk .leg-b, .svg-walk .arm-a { animation: limbBack .72s ease-in-out infinite alternate; }
+    .svg-thinker, .svg-mind { opacity: 0; transition: opacity .42s ease, transform .42s ease; }
+    .svg-thinker { transform-box: fill-box; transform-origin: center; transform: translateY(18px) scale(.92); }
+    .mode-far .svg-far-thinker, .mode-near .svg-near-thinker { opacity: 1; transform: translateY(0) scale(1); transition-delay: .45s; }
+    .svg-mind { transform-box: fill-box; transform-origin: center; transform: translateY(15px) scale(.96); }
+    .mode-far.show-thought .svg-far-mind, .mode-near.show-thought .svg-near-mind { opacity: 1; transform: translateY(0) scale(1); }
+    .svg-thinker-label { fill: #173f31; font: 900 18px "Microsoft YaHei", sans-serif; text-anchor: middle; paint-order: stroke; stroke: #fff; stroke-width: 7px; }
+    .svg-thinker-label.near { fill: #8b5719; }
+    .svg-mind-title { fill: #173f31; font: 900 25px "Microsoft YaHei", sans-serif; text-anchor: middle; }
+    .svg-mind-title.near { fill: #8b5719; }
+    .svg-mini { fill: none; stroke: #173f31; stroke-width: 6; stroke-linecap: round; transform-box: fill-box; transform-origin: center; }
+    .svg-handwalk { animation: svgHandWalk 1.3s ease-in-out infinite alternate; }
+    .svg-head-down { animation: svgHeadDown 1.15s ease-in-out infinite alternate; }
+    .svg-stilts { animation: svgStilt 1.4s ease-in-out infinite alternate; }
+    .svg-mini-label { fill: #14201b; font: 800 17px "Microsoft YaHei", sans-serif; text-anchor: middle; }
+    .svg-mind-note { fill: #bc5946; font: 900 16px "Microsoft YaHei", sans-serif; text-anchor: middle; }
+    .svg-mind-note.near { fill: #9a611d; }
+    .svg-prop-cycle > *, .svg-shoe-cycle, .svg-material-cycle > * { opacity: 0; animation: svgPropCycle 3.3s linear infinite; }
+    .svg-prop-cycle .prop-b, .svg-material-cycle .mat-b { animation-delay: 1.1s; }
+    .svg-prop-cycle .prop-c, .svg-material-cycle .mat-c { animation-delay: 2.2s; }
+    .svg-shoe-cycle { animation-duration: 2.4s; }
+    .svg-shoe-cycle.shoe-b { animation-delay: 1.2s; }
+    .observer-avatar { width: clamp(48px, 4.5vw, 68px); height: clamp(48px, 4.5vw, 68px); flex: 0 0 auto; }
+    @keyframes svgWalk { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
+    @keyframes svgHop { 0%,100% { transform: translateY(0) rotate(-4deg); } 48% { transform: translateY(-25px) rotate(3deg); } }
+    @keyframes svgDoubleHop { 0%,100% { transform: translateY(0) scaleY(1); } 45% { transform: translateY(-31px) scaleY(1.05); } }
+    @keyframes svgMoonwalk { from { transform: translateX(18px) rotate(3deg); } to { transform: translateX(-18px) rotate(-3deg); } }
+    @keyframes limbForward { from { transform: rotate(-17deg); } to { transform: rotate(18deg); } }
+    @keyframes limbBack { from { transform: rotate(18deg); } to { transform: rotate(-17deg); } }
+    @keyframes svgHandWalk { from { transform: rotate(178deg) translateX(-5px); } to { transform: rotate(183deg) translateX(6px); } }
+    @keyframes svgHeadDown { from { transform: rotate(174deg) translateY(-4px); } to { transform: rotate(186deg) translateY(4px); } }
+    @keyframes svgStilt { from { transform: rotate(-3deg) translateY(0); } to { transform: rotate(3deg) translateY(-5px); } }
+    @keyframes svgPropCycle { 0%,28% { opacity: 1; transform: translateY(0); } 31%,100% { opacity: 0; transform: translateY(-8px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .scene-world, .near-person, .observer-choices, .thought-bubble, .thinking-avatar { transition-duration: .01ms; transition-delay: 0s; }
+      .walker, .near-person, .thinking-avatar .head, .mind-actor, .mind-prop, .svg-figure, .svg-mini, .svg-prop-cycle > *, .svg-shoe-cycle, .svg-material-cycle > * { animation: none; }
+      .mind-prop.cycle:first-of-type { opacity: 1; }
+      .svg-prop-cycle > *:first-child, .svg-material-cycle > *:first-child, .svg-shoe-cycle:first-of-type { opacity: 1; }
+    }
+
+    .walks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0 25px; }
+    .walk { padding: 18px; text-align: center; border-bottom: 4px solid var(--sage); background: rgba(255,255,255,.54); font-size: clamp(15px, 1.35vw, 20px); font-weight: 800; }
+    .ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .idea { padding: 20px 22px; border-left: 6px solid var(--coral); background: rgba(188,89,70,.07); }
+    .idea:last-child { border-left-color: var(--amber); background: rgba(209,138,46,.08); }
+    .idea b { display: block; font-size: clamp(18px, 1.7vw, 25px); }
+    .idea p { margin-top: 8px; font-size: clamp(13px, 1.15vw, 17px); }
+
+    .variables { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 32px; }
+    .variable { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .variable b:first-child { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; color: #fff; background: var(--green); }
+    .variable span { color: var(--muted); font-size: clamp(14px, 1.25vw, 18px); line-height: 1.55; }
+
+    .loop { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; align-items: center; margin-top: 8px; }
+    .loop-step { position: relative; padding: 28px 18px; text-align: center; border-top: 5px solid var(--green); background: rgba(255,255,255,.58); font-size: clamp(14px, 1.25vw, 19px); font-weight: 800; }
+    .loop-step + .loop-step { margin-left: 26px; }
+    .loop-step + .loop-step::before { content: "→"; position: absolute; left: -24px; color: var(--amber); font-size: 24px; }
+    .loop-return { margin: 22px auto 0; width: 78%; padding: 13px 18px; border: 1px dashed var(--green); color: var(--green); text-align: center; font-size: clamp(13px, 1.15vw, 17px); font-weight: 800; }
+
+    .thought { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 60px); }
+    .thought-block { padding: 28px; border-left: 7px solid var(--green); background: rgba(255,255,255,.58); }
+    .thought-block:last-child { border-left-color: var(--amber); }
+    .thought-block .q { color: var(--green-dark); font: 800 clamp(23px, 2.5vw, 38px)/1.35 Georgia, "Noto Serif SC", serif; }
+    .thought-block p { margin-top: 14px; }
+    .three-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+    .three-actions div { padding-top: 14px; border-top: 3px solid var(--coral); font-size: clamp(13px, 1.2vw, 18px); font-weight: 800; line-height: 1.5; }
+
+    .tree { display: grid; grid-template-columns: 1.05fr 1.4fr; gap: clamp(30px, 4vw, 62px); align-items: center; }
+    .trunk { padding: 32px; border-left: 8px solid var(--green); background: rgba(255,255,255,.6); }
+    .trunk h3 { color: var(--green-dark); }
+    .branches { display: grid; gap: 12px; }
+    .branch { position: relative; padding: 16px 20px; border-bottom: 2px solid var(--line); color: var(--muted); font-size: clamp(14px, 1.25vw, 18px); }
+    .branch::before { content: ""; position: absolute; left: -25px; top: 50%; width: 20px; height: 2px; background: var(--amber); }
+    .branch b { color: var(--ink); }
+    .drill { margin-top: 22px; color: var(--coral); font-size: clamp(15px, 1.35vw, 20px); font-weight: 900; }
+
+    .gram { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(34px, 5vw, 82px); align-items: center; }
+    .formula {
+      display: grid;
+      place-items: center;
+      min-height: 310px;
+      padding: 28px;
+      border: 1px solid rgba(35,101,77,.2);
+      background: rgba(255,255,255,.62);
+      box-shadow: var(--shadow);
+      color: var(--green-dark);
+      font: 700 clamp(36px, 5vw, 76px)/1.2 Georgia, serif;
+      text-align: center;
+    }
+    .formula small { display: block; margin-top: 18px; color: var(--muted); font: 500 clamp(13px, 1.1vw, 17px)/1.5 "Microsoft YaHei", sans-serif; }
+    .questions { display: grid; gap: 13px; }
+    .questions div { padding: 13px 0 13px 18px; border-left: 4px solid var(--amber); color: var(--muted); font-size: clamp(14px, 1.25vw, 19px); line-height: 1.5; }
+    .questions b { color: var(--ink); }
+
+    .template {
+      padding: clamp(24px, 4vw, 52px);
+      border-left: 9px solid var(--green);
+      background: rgba(255,255,255,.62);
+      box-shadow: var(--shadow);
+      color: var(--green-dark);
+      font: 700 clamp(20px, 2.35vw, 36px)/1.7 Georgia, "Noto Serif SC", serif;
+    }
+    .template mark { padding: 0 .16em; color: var(--coral); background: transparent; border-bottom: 3px solid rgba(188,89,70,.35); }
+    .template-note { margin-top: 22px; color: var(--muted); font-size: clamp(14px, 1.25vw, 19px); }
+
+    .feasibility { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .check { min-height: 225px; padding: 22px 18px; border-top: 6px solid var(--green); background: rgba(255,255,255,.58); }
+    .check:nth-child(2) { border-top-color: var(--blue); }
+    .check:nth-child(3) { border-top-color: var(--amber); }
+    .check:nth-child(4) { border-top-color: var(--coral); }
+    .check:nth-child(5) { border-top-color: var(--sage); }
+    .check b { display: block; font-size: clamp(16px, 1.5vw, 22px); }
+    .check p { margin-top: 12px; font-size: clamp(12px, 1vw, 15px); line-height: 1.55; }
+    .decision { margin-top: 23px; display: flex; justify-content: center; gap: 12px; align-items: center; color: var(--green-dark); font-size: clamp(14px, 1.25vw, 19px); font-weight: 900; }
+    .decision span { padding: 10px 15px; background: rgba(35,101,77,.09); }
+
+    .assets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 22px; }
+    .asset { padding: 18px 0; border-top: 3px solid var(--green); }
+    .asset b { display: block; color: var(--green-dark); font-size: clamp(15px, 1.35vw, 20px); }
+    .asset span { display: block; margin-top: 7px; color: var(--muted); font-size: clamp(12px, 1vw, 15px); line-height: 1.45; }
+    .closing { margin-top: 28px; color: var(--green-dark); font: 800 clamp(22px, 2.5vw, 38px)/1.4 Georgia, "Noto Serif SC", serif; }
+
+    .takeaway-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
+    .takeaway-map div { padding-top: 15px; border-top: 4px solid var(--green); color: var(--muted); font-size: clamp(13px, 1.15vw, 17px); line-height: 1.55; }
+    .takeaway-map b { display: block; margin-bottom: 6px; color: var(--ink); font-size: clamp(16px, 1.5vw, 22px); }
+    .refs { margin-top: 22px; display: grid; gap: 7px; color: #6a7871; font-size: clamp(10px, .9vw, 13px); }
+    .refs a { overflow-wrap: anywhere; text-decoration-color: rgba(35,101,77,.35); }
+
+    .audience { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(34px, 6vw, 92px); align-items: center; }
+    .audience-main { padding-left: clamp(20px, 3vw, 42px); border-left: 9px solid var(--green); }
+    .audience-main p { margin-top: 18px; }
+    .audience-side { display: grid; gap: 18px; }
+    .audience-side div { padding: 18px 0; border-top: 4px solid var(--amber); }
+    .audience-side b { display: block; color: var(--green-dark); font-size: clamp(18px, 1.8vw, 27px); }
+    .audience-side span { display: block; margin-top: 7px; color: var(--muted); font-size: clamp(13px, 1.1vw, 16px); line-height: 1.5; }
+
+    .tool-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 82px); align-items: center; }
+    .tool-name { padding: 28px 0; border-top: 7px solid var(--green); }
+    .tool-name + .tool-name { border-top-color: var(--amber); }
+    .tool-name b { display: block; color: var(--green-dark); font: 800 clamp(28px, 3.4vw, 52px)/1.15 Georgia, serif; }
+    .tool-name span { display: block; margin-top: 10px; color: var(--muted); font-size: clamp(14px, 1.25vw, 18px); line-height: 1.55; }
+    .tool-principle { padding: clamp(25px, 4vw, 48px); border-left: 8px solid var(--coral); background: rgba(255,255,255,.58); }
+    .tool-principle strong { display: block; color: var(--coral); font: 800 clamp(28px, 3.5vw, 54px)/1.2 Georgia, "Noto Serif SC", serif; }
+    .tool-principle p { margin-top: 18px; }
+
+    .final-word { max-width: 1220px; color: var(--green-dark); font: 800 clamp(35px, 5.2vw, 82px)/1.2 Georgia, "Noto Serif SC", serif; }
+    .final-word .soft { color: var(--amber); }
+    .wish { margin-top: 34px; color: var(--muted); font-size: clamp(19px, 2vw, 30px); line-height: 1.55; }
+
+    .controls { position: fixed; right: 18px; bottom: 18px; z-index: 20; display: flex; gap: 8px; }
+    .controls button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(12,35,27,.76);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+    .controls button:hover { background: var(--green); }
+    .help { position: fixed; left: 18px; bottom: 18px; z-index: 20; color: rgba(255,255,255,.72); font-size: 12px; }
+    .progress { position: fixed; left: 0; bottom: 0; z-index: 30; height: 5px; background: var(--amber); transition: width .25s ease; }
+
+    @media (max-width: 900px) {
+      .split, .split.equal, .stats, .tree, .gram, .audience, .tool-layout { grid-template-columns: 1fr; }
+      .pipeline, .pipeline.tail { grid-template-columns: repeat(2, 1fr); }
+      .pipe-step::after { display: none; }
+      .burden, .takeaway-map, .assets { grid-template-columns: repeat(2, 1fr); }
+      .feasibility { grid-template-columns: repeat(2, 1fr); }
+      .balance { grid-template-columns: 1fr; }
+      .versus { text-align: center; }
+      .observe, .thought, .ideas { gap: 18px; }
+      .formula { min-height: 170px; }
+    }
+    @media (max-width: 620px) {
+      .slide { overflow-y: auto; }
+      .pipeline, .pipeline.tail, .burden, .observe, .walks, .variables, .thought, .three-actions, .feasibility, .assets, .takeaway-map { grid-template-columns: 1fr; }
+      .sequence, .loop { display: grid; grid-template-columns: 1fr; gap: 10px; }
+      .seq-item + .seq-item, .loop-step + .loop-step { margin-left: 0; }
+      .seq-item::before, .loop-step::before { display: none; }
+      .help { display: none; }
+      .observer-scene { min-height: 620px; }
+      .observer-choices { flex-direction: column; gap: 10px; align-items: stretch; }
+      .observer-choice { width: 100%; }
+      .thought-bubble { width: 88%; }
+      .far-thought, .near-thought { left: 6%; right: auto; }
+      .mind-reel { grid-template-columns: repeat(2, 1fr); }
+      .thinking-avatar { left: 6%; right: auto; bottom: 5%; }
+    }
+    @media print {
+      html, body { overflow: visible; background: white; }
+      .deck { height: auto; }
+      .slide { position: relative; display: grid; width: 100vw; height: 56.25vw; page-break-after: always; opacity: 1; visibility: visible; transform: none; }
+      .controls, .help, .progress { display: none; }
+    }
+  </style>
+</head>
+<body>
+<main class="deck" aria-label="研究生个人论文流水线演示文稿">
+
+  <section class="slide active">
+    <div class="kicker">Graduate Research Workflow</div>
+    <div class="content">
+      <h1>研究生的个人<br><span class="accent">论文流水线</span></h1>
+      <div class="title-rule"></div>
+      <p class="lead">从发现问题到可行性验证：如何提前建立可复用、可检查、可迭代的科研工作流</p>
+      <div class="title-meta"><span><b>关注重心</b> 找问题</span><span><b>适用阶段</b> 研究生早期</span><span><b>核心方法</b> 远观与近观</span></div>
+    </div>
+    <div class="footer"><span>个人科研方法整理</span><span class="slide-no">01 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">适合人群</div>
+    <div class="content audience">
+      <div class="audience-main">
+        <h2>正在寻找研究方向的研究生</h2>
+        <p class="lead">尤其适合刚开始读文献、准备开题，或者已经积累了一些论文，却仍然不知道怎样从文献中提出研究问题的人。</p>
+      </div>
+      <div class="audience-side">
+        <div><b>硕士与博士早期</b><span>需要形成稳定的选题、阅读、实验与写作节奏。</span></div>
+        <div><b>准备科研的本科生</b><span>同样可以提前练习，只是通常没有持续产出论文的迫切需求。</span></div>
+        <div><b>已有方向但缺少问题</b><span>研究方向已经确定，脑中也有模糊设计，需要把它收紧为可验证的问题。</span></div>
+      </div>
+    </div>
+    <div class="footer"><span>见简介：从“我想研究什么”走到“我能回答什么”</span><span class="slide-no">02 / 20</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">问题起始</div>
+    <div class="content split">
+      <div>
+        <h2>“论文流水线”<br>是怎么进入视野的</h2>
+        <p class="lead">研究生开始接触论文，通过网页、Bilibili、抖音等渠道搜集经验。一次偶然机会，“论文流水线”这个概念出现了。</p>
+      </div>
+      <div class="rule-left">
+        <div class="big-question">这种感觉，是否一定要到博士或更高阶段才能感知？</div>
+        <p style="margin-top:22px">门槛并不高。本科生也可以实践，只是研究生通常有更明确的论文产出与毕业需求，因此更有必要提前建立个人工作流。</p>
+        <div class="marginalia">初衷：不是追求机械量产，而是减少每次从零开始。</div>
+      </div>
+    </div>
+    <div class="footer"><span>从零散经验到流程意识</span><span class="slide-no">02 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">整条流水线</div>
+    <div class="content">
+      <h2>前端主动决策，后端沿轨道执行</h2>
+      <div class="pipeline">
+        <div class="pipe-step"><b>需求与约束</b><span>时间、毕业、方向、资源</span></div>
+        <div class="pipe-step"><b>选题池</b><span>记录候选题与淘汰理由</span></div>
+        <div class="pipe-step"><b>文献与现状</b><span>建立领域地图与坐标</span></div>
+        <div class="pipe-step"><b>研究问题</b><span>本文重点：找出值得回答的问题</span></div>
+        <div class="pipe-step"><b>研究设计</b><span>明确证据、变量与对照</span></div>
+      </div>
+      <div class="pipeline tail">
+        <div class="pipe-step"><b>数据与资源</b></div>
+        <div class="pipe-step"><b>基线复现与实验</b></div>
+        <div class="pipe-step"><b>结果分析</b></div>
+        <div class="pipe-step"><b>论文写作</b></div>
+        <div class="pipe-step"><b>投稿、修改与沉淀</b></div>
+      </div>
+      <div class="phase-labels"><div>前五部分：主动判断更多</div><div>后续环节：执行与反馈更多</div></div>
+    </div>
+    <div class="footer"><span>可复用、可检查、可迭代</span><span class="slide-no">03 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">前五部分为什么难</div>
+    <div class="content">
+      <h2>“麻烦”或“折磨”背后，是四种真实负担</h2>
+      <div class="burden">
+        <div class="burden-item"><b>决策密度高</b><p>需要连续作出方向性判断。</p></div>
+        <div class="burden-item"><b>不确定性高</b><p>通常没有唯一正确答案。</p></div>
+        <div class="burden-item"><b>试错成本高</b><p>前期偏差会在后期被放大。</p></div>
+        <div class="burden-item"><b>认知负荷高</b><p>要同时理解文献、资源、方法与评价。</p></div>
+      </div>
+      <div class="callout">需求与约束、选题池、文献与现状可以使用 AI 辅助。真正难以外包的，仍是<strong>研究问题</strong>与<strong>研究设计</strong>。</div>
+    </div>
+    <div class="footer"><span>也可以概括为“研究瓶颈”</span><span class="slide-no">04 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">研究问题与研究设计</div>
+    <div class="content">
+      <h2>如果必须分先后，研究问题更靠前</h2>
+      <div class="balance">
+        <div class="balance-side"><span class="num">Q</span><h3>研究问题</h3><p>决定要证明什么，也决定数据、指标和结果究竟意味着什么。</p></div>
+        <div class="versus">相互修正</div>
+        <div class="balance-side"><span class="num">D</span><h3>研究设计</h3><p>决定能否用可信的证据回答这个问题。</p></div>
+      </div>
+      <div class="cycle"><span>初步问题</span><i>→</i><span>初步设计</span><i>→</i><span>可行性检查</span><i>→</i><span>缩小或修正问题</span><i>→</i><span>完善设计</span></div>
+    </div>
+    <div class="footer"><span>本文把“发现问题”作为关注重心</span><span class="slide-no">05 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">小插曲</div>
+    <div class="content">
+      <h2>“实验做完，一周写完论文”只描述了执行后段</h2>
+      <div class="sequence">
+        <div class="seq-item"><b>数据或任务定义</b><span>实验必须有可用、可信的数据支撑。</span></div>
+        <div class="seq-item"><b>实验实施</b><span>基线、对照和消融形成证据。</span></div>
+        <div class="seq-item"><b>结果分析</b><span>判断结果支持什么，不支持什么。</span></div>
+        <div class="seq-item"><b>集中写作</b><span>条件成熟时，主体可以较快完成。</span></div>
+      </div>
+      <div class="warning-line">关键点在顺序。文献、问题定义、实验方案与失败记录仍应同步整理，否则最后一周是在重新回忆研究。</div>
+    </div>
+    <div class="footer"><span>数据 → 实验 → 分析 → 写作</span><span class="slide-no">06 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">为什么找问题值得成为重点</div>
+    <div class="content">
+      <h2>读了很多文献，不等于形成了选题判断</h2>
+      <div class="stats">
+        <div class="stat"><strong>92%+</strong><p>被调查者认为，查阅文献占总科研时间的一半以上。</p></div>
+        <div class="stat"><strong>65%+</strong><p>研究生认为，自己经常进行“无效文献调研”。</p></div>
+        <div class="stat note"><strong>案例，不是普遍定律</strong><p>数据来自单一院系、329 人调查，不宜外推为全体研究生。它提示的核心困境是：文献阅读需要转化为结构化认识。</p></div>
+      </div>
+      <p class="source">参考：<a href="https://www.doc88.com/p-69439116020692.html" target="_blank" rel="noopener">道客巴巴页面</a>；李旭等，《研究生科研第一课：快速进行文献检索与阅读》；<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=2" target="_blank" rel="noopener">Bilibili 视频第 2 部分“七分错误三分解”</a>。</p>
+    </div>
+    <div class="footer"><span>每轮阅读都应服务于明确目标</span><span class="slide-no">07 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">两种视角 · 文字说明</div>
+    <div class="content">
+      <h2>远观与近观，只是研究问题的起点不同</h2>
+      <div class="observe">
+        <div class="observe-side">
+          <div class="distance">100m</div>
+          <h3>远观法：先看地图</h3>
+          <ul>
+            <li>站得远，细节不清楚，只能先看出大致类别</li>
+            <li>阅读近三年的综述与代表性工作</li>
+            <li>观察类别、边界与交叉空白</li>
+            <li>从大致方向继续下钻到可执行问题</li>
+          </ul>
+        </div>
+        <div class="observe-side">
+          <div class="distance">1m</div>
+          <h3>近观法：直奔细节</h3>
+          <ul>
+            <li>站得近，能够看清一个对象的具体行为</li>
+            <li>精读一篇与自己资源条件接近的论文</li>
+            <li>拆出任务、数据、模块、基线与指标</li>
+            <li>通过增加、比较、关联和替换提出问题</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>先理解两种观察方式</span><span class="slide-no">09 / 21</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">两种视角 · SVG 动画</div>
+    <div class="content">
+      <h2 style="margin-bottom:18px">点击一个思考者，进入他的观察视角</h2>
+      <div class="observer-scene" id="observer-scene" data-mode="overview" aria-live="polite">
+        <svg class="story-svg" id="observer-camera" viewBox="0 0 1200 600" role="img" aria-label="远处有四类行走方式，近处有一位正常行走的人">
+          <defs>
+            <linearGradient id="svg-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8ebe6"/><stop offset="1" stop-color="#f2eee2"/></linearGradient>
+            <g id="svg-person" fill="none" stroke="#173f31" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="0" cy="-48" r="18" fill="#f0bd8d" stroke-width="6"/>
+              <path d="M-16 -58 Q0 -78 17 -58" fill="#283a31" stroke="#283a31" stroke-width="7"/>
+              <line x1="0" y1="-30" x2="0" y2="35"/>
+              <line class="arm-a" x1="0" y1="-10" x2="-30" y2="17"/>
+              <line class="arm-b" x1="0" y1="-10" x2="30" y2="8"/>
+              <line class="leg-a" x1="0" y1="35" x2="-24" y2="78"/>
+              <line class="leg-b" x1="0" y1="35" x2="28" y2="76"/>
+            </g>
+          </defs>
+          <rect width="1200" height="600" fill="url(#svg-sky)"/>
+          <circle cx="1040" cy="95" r="48" fill="#f3c76d" opacity=".72"/>
+          <path d="M0 338 Q170 296 340 334 T680 326 T1020 334 T1200 316 V600 H0Z" fill="#d4c5a6"/>
+          <path d="M0 430 L1200 410 L1200 600 L0 600Z" fill="#a9b5a3" opacity=".72"/>
+          <path d="M0 505 L1200 480" stroke="#f7f3e9" stroke-width="8" stroke-dasharray="42 34" opacity=".82"/>
+          <text x="510" y="92" class="svg-distance-label">100m</text>
+
+          <g class="svg-far-existing">
+            <g transform="translate(330 292)"><g class="svg-figure svg-walk"><use href="#svg-person"/></g><text y="112" class="svg-behavior-label">双脚交替</text></g>
+            <g transform="translate(475 292)"><g class="svg-figure svg-hop"><use href="#svg-person"/></g><text y="112" class="svg-behavior-label">单脚跳</text></g>
+            <g transform="translate(620 292)"><g class="svg-figure svg-double-hop"><use href="#svg-person"/></g><text y="112" class="svg-behavior-label">双脚跳</text></g>
+            <g transform="translate(765 292)"><g class="svg-figure svg-moonwalk"><use href="#svg-person"/></g><text y="112" class="svg-behavior-label">太空步</text></g>
+          </g>
+
+          <g class="svg-near-existing" transform="translate(875 318) scale(1.42)">
+            <g class="svg-figure svg-walk"><use href="#svg-person"/></g>
+            <rect x="-83" y="96" width="166" height="31" rx="15" fill="#fff" opacity=".9"/>
+            <text y="117" class="svg-near-label">正在双脚交替走路</text>
+          </g>
+        </svg>
+
+        <svg class="story-svg svg-thought-layer" viewBox="0 0 1200 600" aria-hidden="true">
+          <g class="svg-thinker svg-far-thinker" transform="translate(108 405)">
+            <circle cx="0" cy="0" r="64" fill="#f0bd8d" stroke="#173f31" stroke-width="7"/>
+            <path d="M-55 -24 Q-33 -81 27 -62 Q59 -49 60 -13" fill="#283a31" stroke="#283a31" stroke-width="8"/>
+            <path d="M-28 -3 q13 -11 25 0 M17 -3 q13 -11 25 0" fill="none" stroke="#173f31" stroke-width="6" stroke-linecap="round"/>
+            <path d="M1 27 Q19 16 34 30" fill="none" stroke="#173f31" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="61" cy="39" r="19" fill="#f0bd8d" stroke="#173f31" stroke-width="6"/>
+            <text x="0" y="104" class="svg-thinker-label">远观者正在想象</text>
+          </g>
+          <g class="svg-thinker svg-near-thinker" transform="translate(1080 405)">
+            <circle cx="0" cy="0" r="64" fill="#f0bd8d" stroke="#9a611d" stroke-width="7"/>
+            <path d="M-55 -24 Q-33 -81 27 -62 Q59 -49 60 -13" fill="#513d2e" stroke="#513d2e" stroke-width="8"/>
+            <path d="M-28 -3 q13 -11 25 0 M17 -3 q13 -11 25 0" fill="none" stroke="#6b461e" stroke-width="6" stroke-linecap="round"/>
+            <path d="M1 27 Q19 16 34 30" fill="none" stroke="#6b461e" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="61" cy="39" r="19" fill="#f0bd8d" stroke="#9a611d" stroke-width="6"/>
+            <text x="0" y="104" class="svg-thinker-label near">近观者正在想象</text>
+          </g>
+
+          <g class="svg-mind svg-far-mind">
+            <rect x="215" y="35" width="760" height="318" rx="58" fill="#fff" stroke="#b7c9bd" stroke-width="4"/>
+            <circle cx="186" cy="333" r="22" fill="#fff"/><circle cx="154" cy="365" r="12" fill="#fff"/>
+            <text x="595" y="82" class="svg-mind-title">脑中想象：尚未出现的类别</text>
+            <g transform="translate(360 192)"><g class="svg-mini svg-handwalk" transform="rotate(180)"><use href="#svg-person" transform="scale(.58)"/></g><text y="110" class="svg-mini-label">双手走路</text></g>
+            <g transform="translate(590 192)"><g class="svg-mini svg-head-down" transform="rotate(180)"><use href="#svg-person" transform="scale(.58)"/></g><text y="110" class="svg-mini-label">头朝下走</text></g>
+            <g transform="translate(815 185)"><g class="svg-mini svg-stilts"><use href="#svg-person" transform="scale(.58)"/><line x1="-14" y1="44" x2="-20" y2="103"/><line x1="17" y1="44" x2="22" y2="103"/></g><text y="117" class="svg-mini-label">踩高跷</text></g>
+            <text x="595" y="326" class="svg-mind-note">“造”也可以是发现、提炼或推理</text>
+          </g>
+
+          <g class="svg-mind svg-near-mind">
+            <rect x="120" y="35" width="850" height="330" rx="58" fill="#fff" stroke="#d3ad72" stroke-width="4"/>
+            <circle cx="1001" cy="343" r="22" fill="#fff"/><circle cx="1037" cy="373" r="12" fill="#fff"/>
+            <text x="545" y="82" class="svg-mind-title near">脑中想象：改变这位行人的条件</text>
+            <g transform="translate(235 188)"><use href="#svg-person" transform="scale(.46)"/><rect x="17" y="-16" width="18" height="31" rx="3" fill="#3c7087"/><text y="102" class="svg-mini-label">加入手机</text></g>
+            <g transform="translate(435 188)"><use href="#svg-person" transform="scale(.46)"/><g class="svg-prop-cycle"><rect class="prop-a" x="18" y="-15" width="18" height="30" rx="3" fill="#3c7087"/><path class="prop-b" d="M19 -9 h17 v25 h-17z" fill="#78b4cf"/><path class="prop-c" d="M17 -8 h22 l-3 27 h-16z M23 -18 l12 10" fill="none" stroke="#bc5946" stroke-width="5"/></g><text y="102" class="svg-mini-label">手机 / 水 / 奶茶</text></g>
+            <g transform="translate(645 188)"><use href="#svg-person" transform="scale(.46)"/><path class="svg-shoe-cycle shoe-a" d="M-21 38 q20 10 37 0" fill="none" stroke="#bc5946" stroke-width="8"/><path class="svg-shoe-cycle shoe-b" d="M-27 36 q18 15 48 4 l7 11 h-61z" fill="#3c7087"/><text y="102" class="svg-mini-label">光脚 / 穿鞋</text></g>
+            <g transform="translate(845 188)"><use href="#svg-person" transform="scale(.46)"/><g class="svg-material-cycle"><circle class="mat-a" cx="27" cy="2" r="15" fill="#dcece7" stroke="#3c7087" stroke-width="3"/><rect class="mat-b" x="14" y="-13" width="29" height="29" fill="#a97943"/><path class="mat-c" d="M28 -17 l7 8 11 1-5 10 3 11-11-2-9 7-4-11-10-6 9-7z" fill="#7d8b91"/></g><text y="102" class="svg-mini-label">泡沫 / 木头 / 合金</text></g>
+            <text x="545" y="337" class="svg-mind-note near">增加、比较、关联、替换，形成新的追问</text>
+          </g>
+        </svg>
+
+        <div class="scene-prompt">选择远观或近观</div>
+        <div class="observer-choices">
+          <button class="observer-choice far" type="button" data-observer-view="far">
+            <svg class="observer-avatar" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="38" r="26" fill="#f0bd8d" stroke="#173f31" stroke-width="5"/><path d="M17 29 Q27 4 54 15 Q67 21 65 35" fill="#283a31"/><path d="M27 39 q6 -6 12 0 M46 39 q6 -6 12 0" fill="none" stroke="#173f31" stroke-width="4" stroke-linecap="round"/><path d="M36 54 q9 -7 17 1" fill="none" stroke="#173f31" stroke-width="4" stroke-linecap="round"/></svg>
+            <span><b>远观的人</b><span>从 100 米外观察一群人的走法</span></span>
+          </button>
+          <button class="observer-choice near" type="button" data-observer-view="near">
+            <svg class="observer-avatar" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="38" r="26" fill="#f0bd8d" stroke="#9a611d" stroke-width="5"/><path d="M17 29 Q27 4 54 15 Q67 21 65 35" fill="#513d2e"/><path d="M27 39 q6 -6 12 0 M46 39 q6 -6 12 0" fill="none" stroke="#6b461e" stroke-width="4" stroke-linecap="round"/><path d="M36 54 q9 -7 17 1" fill="none" stroke="#6b461e" stroke-width="4" stroke-linecap="round"/></svg>
+            <span><b>近观的人</b><span>走到 1 米内观察一个人的细节</span></span>
+          </button>
+        </div>
+
+        <button class="scene-reset" type="button" data-observer-reset>重新选择</button>
+      </div>
+    </div>
+    <div class="footer"><span>远观建立分类，近观发现机制</span><span class="slide-no">08 / 20</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">远观法</div>
+    <div class="content">
+      <h2>站得远，先看清“有哪几类走法”</h2>
+      <div class="walks"><div class="walk">双脚交替</div><div class="walk">单脚跳</div><div class="walk">双脚跳</div><div class="walk">太空步</div></div>
+      <div class="ideas">
+        <div class="idea"><b>双手走路？头朝下走？</b><p>直接补充现有类别，发现问题的时间较短，但如果只是换表面形式，研究贡献可能有限。</p></div>
+        <div class="idea"><b>“造”一个高跷？</b><p>需要设计新的结构并解释机制，投入更多，却可能形成更实质的贡献。“造”也可以是发现、提炼或推理。</p></div>
+      </div>
+      <div class="callout">转译成论文行为：查近三年的综述，建立分类框架，标出缺口，再选择一个方向下钻。</div>
+    </div>
+    <div class="footer"><span>风险：停留在宏观概念，问题过宽</span><span class="slide-no">09 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">近观法</div>
+    <div class="content">
+      <h2>走到一米内，针对一个具体机制追问</h2>
+      <div class="variables">
+        <div class="variable"><b>加</b><span><strong>带手机是否影响走路？</strong><br>加入变量，观察分心或辅助作用。</span></div>
+        <div class="variable"><b>比</b><span><strong>手机、水、奶茶，哪个走得更远？</strong><br>横向比较不同条件。</span></div>
+        <div class="variable"><b>联</b><span><strong>光脚与穿鞋有什么差异？</strong><br>加入与任务关联更强的条件。</span></div>
+        <div class="variable"><b>换</b><span><strong>泡沫、木头、合金鞋会怎样？</strong><br>替换关键组件并解释影响。</span></div>
+      </div>
+      <div class="callout">转译成论文行为：精读一篇论文，拆开它的部件，再追问“增加、删除、替换、组合、迁移或扰动之后会怎样”。</div>
+    </div>
+    <div class="footer"><span>风险：只做换模块式微调，说不清为什么</span><span class="slide-no">10 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">殊途同归</div>
+    <div class="content">
+      <h2>两种方法会在阅读过程中反复切换</h2>
+      <div class="loop">
+        <div class="loop-step">综述建立地图</div>
+        <div class="loop-step">代表论文定位坐标</div>
+        <div class="loop-step">精读发现细节</div>
+        <div class="loop-step">回到全局判断价值</div>
+        <div class="loop-step">进入具体设计</div>
+      </div>
+      <div class="loop-return">远观之后必然走向近观；近观积累到一定数量，也会重新形成远观。</div>
+      <p class="lead" style="margin:28px auto 0;text-align:center">起点不同，最终都要把领域地图、具体机制与可验证证据连在一起。</p>
+    </div>
+    <div class="footer"><span>阅读节奏决定问题质量</span><span class="slide-no">11 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">想象力训练</div>
+    <div class="content">
+      <h2>科研想象力，是改变默认前提后还能补上检验条件</h2>
+      <div class="thought">
+        <div class="thought-block"><div class="q">“你就是我，我就是你。”<br>能否同意，并给出理由？</div><p>练习改变身份、角色或观察尺度，而不是立即用常识否定。</p></div>
+        <div class="thought-block"><div class="q">围着组会桌子走一圈，<br>能否说自己走的是直线？</div><p>如果观察者是一只沿桌边运动的蚂蚁，每一段局部路径都可以是直线。</p></div>
+      </div>
+      <div class="three-actions"><div>1. 识别没有明说的默认假设</div><div>2. 改变观察尺度或参照系</div><div>3. 给新解释补上可检验条件</div></div>
+      <p class="source">灵感参考：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=3" target="_blank" rel="noopener">Bilibili 视频，第 3 部分</a></p>
+    </div>
+    <div class="footer"><span>只有第三步完成，脑洞才可能成为研究问题</span><span class="slide-no">12 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">远观示例</div>
+    <div class="content">
+      <h2>大模型 + 可靠性验证：第一层没想法，就继续下钻</h2>
+      <div class="tree">
+        <div class="trunk"><h3>领域粗略分类</h3><p>验证大模型本身<br>使用大模型完成验证<br>验证“验证器”<br>框架与综述整合</p><div class="drill">第一层暂时没有想法，不必强行创新。</div></div>
+        <div class="branches">
+          <div class="branch"><b>下钻：使用大模型完成验证</b>　协议、硬件、软件、数学</div>
+          <div class="branch">数学推理可以验证，<b>自然语言论证能否验证？</b></div>
+          <div class="branch">软件验证覆盖了哪些类型、语言和缺陷类别？<b>能否横向比较？</b></div>
+          <div class="branch">模型结论能否由编译、测试、静态分析或形式化工具<b>外部校验？</b></div>
+        </div>
+      </div>
+      <div class="warning-line" style="margin-top:24px">警惕表面迁移：把数学换成语文、把 Java 换成 Python，还要说明新对象带来的独特困难。</div>
+    </div>
+    <div class="footer"><span>分类 → 下钻 → 找到可解释的差异</span><span class="slide-no">13 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">近观示例</div>
+    <div class="content">
+      <h2>从 Gram 矩阵或行列式继续追问</h2>
+      <div class="gram">
+        <div class="formula">det(G)<small>先确认它在原方法中的作用：相似性、线性相关性、体积，还是多样性或稳定性的代理？</small></div>
+        <div class="questions">
+          <div><b>替代</b>　是否存在性质相近、计算成本更低的量？</div>
+          <div><b>稳定</b>　病态矩阵、噪声数据或高维小样本下是否稳定？</div>
+          <div><b>组合</b>　能否加入正则项、归一化项或其他“稳定因子”？</div>
+          <div><b>形式</b>　稳定因子应是常数、向量、矩阵还是函数？</div>
+          <div><b>证据</b>　改善的是数值稳定性、检索多样性还是生成质量？</div>
+        </div>
+      </div>
+      <div class="callout">“换一个东西”只是灵感。补全作用机制、适用条件、评价指标与对照实验之后，它才成为问题。</div>
+    </div>
+    <div class="footer"><span>先问“它为什么在这里”，再问“能否替换”</span><span class="slide-no">14 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">把灵感改写成研究问题</div>
+    <div class="content">
+      <h2>一个可收紧问题的句式</h2>
+      <div class="template">在<mark>具体场景</mark>中，现有<mark>方法</mark>由于<mark>已观察到的局限</mark>，会导致<mark>可测量的后果</mark>。本文拟引入或改变<mark>核心变量或机制</mark>，并通过<mark>数据、基线、指标与对照</mark>检验其是否改善<mark>目标</mark>，以及在<mark>边界条件</mark>下是否仍然成立。</div>
+      <div class="template-note">这套句式把“想做一个系统”转成了可以被证据回答的问题：对象、局限、变量、证据、目标与边界都要出现。</div>
+    </div>
+    <div class="footer"><span>问题不是标题，而是一组可检验的关系</span><span class="slide-no">15 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">可行性验证</div>
+    <div class="content">
+      <h2>问题商量确认之后，先检查“能不能做完”</h2>
+      <div class="feasibility">
+        <div class="check"><b>新颖性与空缺</b><p>是否有人做过？差异来自新问题、新机制、新数据还是新评价？</p></div>
+        <div class="check"><b>数据与评价</b><p>能否合法获得？标签和指标能否回答问题？是否有真值或外部信号？</p></div>
+        <div class="check"><b>方法与实验</b><p>基线能否复现？关键组件能否实现？对照和消融是否公平？</p></div>
+        <div class="check"><b>个人与团队</b><p>知识、时间、导师支持与领域专家是否足够？</p></div>
+        <div class="check"><b>软硬件与成本</b><p>算力、存储、API、许可、设备与实验时长是否可承受？</p></div>
+      </div>
+      <div class="decision"><span>满足</span>进入基线、复现、实验设计、对照与消融　　<span>不满足</span>缩小问题、更换验证方式或回到选题池</div>
+    </div>
+    <div class="footer"><span>有价值、能验证、做得完</span><span class="slide-no">16 / 17</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">最终沉淀</div>
+    <div class="content">
+      <h2>“下一篇更快”来自研究资产，而不是机械复制</h2>
+      <div class="assets">
+        <div class="asset"><b>文献库</b><span>分类、批注与代表论文坐标</span></div>
+        <div class="asset"><b>选题池</b><span>候选问题与淘汰理由</span></div>
+        <div class="asset"><b>问题模板</b><span>可行性检查表与判断标准</span></div>
+        <div class="asset"><b>数据资产</b><span>版本、划分方式与处理脚本</span></div>
+        <div class="asset"><b>实验资产</b><span>基线代码、环境与日志</span></div>
+        <div class="asset"><b>失败记录</b><span>负结果、异常与决策依据</span></div>
+        <div class="asset"><b>写作资产</b><span>图表、结构与投稿检查清单</span></div>
+        <div class="asset"><b>复盘</b><span>有效做法与无效做法</span></div>
+      </div>
+      <div class="closing">把有效做法、失败原因和判断标准留下来，下一次研究才不必从零开始。</div>
+    </div>
+    <div class="footer"><span>流水线最终沉淀为可复用的研究资产</span><span class="slide-no">18 / 20</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">工具推荐</div>
+    <div class="content">
+      <h2>工具负责减少重复劳动</h2>
+      <div class="tool-layout">
+        <div>
+          <div class="tool-name"><b>Zotero</b><span>管理文献、分类、批注与引用；可配合 zotero-pdf2zh 进行中英翻译辅助。</span></div>
+          <div class="tool-name"><b>AI Agent</b><span>常用于检索辅助、归纳比较、代码与实验支持。工具清单仍可继续补充。</span></div>
+        </div>
+        <div class="tool-principle"><strong>邪修？不存在的！</strong><p>AI 和插件可以帮助搜索、翻译、整理与执行，但研究问题、证据标准和最终判断仍由研究者负责。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>常用工具，待补充</span><span class="slide-no">19 / 20</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">最后的话</div>
+    <div class="content">
+      <div class="final-word">研究问题是方向盘，研究设计是导航。<br><span class="soft">远观与近观反复切换，</span><br>灵感才会成为能完成的研究。</div>
+      <p class="wish">看到这里，希望对你有所帮助。祝好！</p>
+      <div class="refs">
+        <span>参考 1：<a href="https://www.doc88.com/p-69439116020692.html" target="_blank" rel="noopener">https://www.doc88.com/p-69439116020692.html</a></span>
+        <span>参考 2：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=2" target="_blank" rel="noopener">Bilibili BV1NCaR6LEAm，第 2 部分</a></span>
+        <span>参考 3：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=3" target="_blank" rel="noopener">Bilibili BV1NCaR6LEAm，第 3 部分</a></span>
+      </div>
+    </div>
+    <div class="footer"><span>Q &amp; A</span><span class="slide-no">20 / 20</span></div>
+  </section>
+
+</main>
+
+<div class="help">← → / 空格翻页　Home / End　F 全屏　P 打印</div>
+<div class="controls" aria-label="演示控制">
+  <button id="prev" type="button" aria-label="上一页">←</button>
+  <button id="next" type="button" aria-label="下一页">→</button>
+</div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((slide, index) => {
+    const pageNumber = slide.querySelector('.slide-no');
+    if (pageNumber) pageNumber.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+  });
+  const observerScene = document.querySelector('#observer-scene');
+  const observerCamera = document.querySelector('#observer-camera');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let observerTimer;
+  let cameraFrame;
+  const cameraViews = {
+    overview: [0, 0, 1200, 600],
+    far: [220, 100, 700, 350],
+    near: [650, 130, 500, 250]
+  };
+
+  function animateCamera(target, duration = 900) {
+    if (!observerCamera) return;
+    cancelAnimationFrame(cameraFrame);
+    const box = observerCamera.viewBox.baseVal;
+    const start = [box.x, box.y, box.width, box.height];
+    if (reduceMotion || duration === 0) {
+      observerCamera.setAttribute('viewBox', target.join(' '));
+      return;
+    }
+    const started = performance.now();
+    const ease = value => 1 - Math.pow(1 - value, 3);
+    const frame = now => {
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = ease(progress);
+      const next = start.map((value, index) => value + (target[index] - value) * eased);
+      observerCamera.setAttribute('viewBox', next.join(' '));
+      if (progress < 1) cameraFrame = requestAnimationFrame(frame);
+    };
+    cameraFrame = requestAnimationFrame(frame);
+  }
+
+  function resetObserverScene() {
+    if (!observerScene) return;
+    clearTimeout(observerTimer);
+    observerScene.classList.remove('mode-far', 'mode-near', 'show-thought');
+    observerScene.dataset.mode = 'overview';
+    animateCamera(cameraViews.overview, 650);
+  }
+
+  document.querySelectorAll('[data-observer-view]').forEach(button => {
+    button.addEventListener('click', event => {
+      event.stopPropagation();
+      const view = button.dataset.observerView;
+      clearTimeout(observerTimer);
+      observerScene.classList.remove('mode-far', 'mode-near', 'show-thought');
+      observerScene.classList.add(`mode-${view}`);
+      observerScene.dataset.mode = view;
+      animateCamera(cameraViews[view]);
+      observerTimer = setTimeout(() => observerScene.classList.add('show-thought'), reduceMotion ? 0 : 920);
+    });
+  });
+  document.querySelector('[data-observer-reset]')?.addEventListener('click', event => {
+    event.stopPropagation();
+    resetObserverScene();
+  });
+  let current = 0;
+
+  function show(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+      slide.setAttribute('aria-hidden', String(i !== current));
+    });
+    if (observerScene && !observerScene.closest('.slide').classList.contains('active')) resetObserverScene();
+    document.querySelector('#progress').style.width = `${(current + 1) / slides.length * 100}%`;
+    history.replaceState(null, '', `#${current + 1}`);
+  }
+
+  document.querySelector('#prev').addEventListener('click', () => show(current - 1));
+  document.querySelector('#next').addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', event => {
+    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+    if (event.key === 'Home') show(0);
+    if (event.key === 'End') show(slides.length - 1);
+    if (event.key.toLowerCase() === 'f') document.documentElement.requestFullscreen?.();
+    if (event.key.toLowerCase() === 'p') window.print();
+  });
+
+  let startX = 0;
+  document.addEventListener('touchstart', event => { startX = event.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', event => {
+    const dx = event.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 55) show(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  const hash = Number(location.hash.slice(1));
+  show(Number.isFinite(hash) && hash > 0 ? hash - 1 : 0);
+</script>
+</body>
+</html>
