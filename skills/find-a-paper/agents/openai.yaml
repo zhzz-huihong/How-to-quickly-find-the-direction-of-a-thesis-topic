@@ -1,0 +1,4 @@
+interface:
+  display_name: "find a paper"
+  short_description: "从文献版图与种子论文中发现并验证可行的研究课题"
+  default_prompt: "Use $find-a-paper to explore and validate a feasible paper topic in my research area."
