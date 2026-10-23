@@ -1,0 +1,4 @@
+interface:
+  display_name: "论文选题方法论"
+  short_description: "从文献地图和论文细节中发现、比较并收敛可行研究课题"
+  default_prompt: "使用 $research-topic-selection 帮我从当前研究方向生成并筛选可行课题。"
