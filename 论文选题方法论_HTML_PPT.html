@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="研究生的个人论文流水线：从发现问题到可行性验证">
-  <title>研究生的个人论文流水线｜HTML PPT</title>
+  <title>论文选题的方法论｜HTML PPT</title>
   <style>
     :root {
       --ink: #14201b;
@@ -602,6 +602,43 @@
     .audience-side div { padding: 18px 0; border-top: 4px solid var(--amber); }
     .audience-side b { display: block; color: var(--green-dark); font-size: clamp(18px, 1.8vw, 27px); }
     .audience-side span { display: block; margin-top: 7px; color: var(--muted); font-size: clamp(13px, 1.1vw, 16px); line-height: 1.5; }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 42px); align-items: stretch; }
+    .problem-card { padding: clamp(24px, 3vw, 38px) clamp(20px, 2.5vw, 32px); border-top: 7px solid var(--green); background: rgba(255,255,255,.44); min-height: 280px; }
+    .problem-card:nth-child(2) { border-color: var(--amber); }
+    .problem-card:nth-child(3) { border-color: var(--rust); }
+    .problem-card .index { color: rgba(23,63,49,.2); font-family: Georgia, serif; font-size: clamp(42px, 5vw, 74px); font-weight: 900; line-height: .9; }
+    .problem-card h3 { margin: 18px 0 10px; color: var(--green-dark); font-size: clamp(20px, 2vw, 30px); }
+    .problem-card p { margin: 0; color: var(--muted); font-size: clamp(14px, 1.25vw, 18px); line-height: 1.65; }
+    .cause-table { display: grid; border-top: 3px solid var(--green-dark); border-bottom: 3px solid var(--green-dark); }
+    .cause-row { display: grid; grid-template-columns: .62fr 1.18fr 1.2fr; min-height: 76px; border-top: 1px solid rgba(23,63,49,.22); align-items: center; }
+    .cause-row:first-child { border-top: 0; background: var(--green-dark); min-height: 52px; }
+    .cause-row > * { padding: 11px 18px; }
+    .cause-row > * + * { border-left: 1px solid rgba(23,63,49,.22); }
+    .cause-row:first-child > * + * { border-left-color: rgba(255,255,255,.25); }
+    .cause-row b { color: var(--green-dark); font-size: clamp(15px, 1.25vw, 19px); }
+    .cause-row span { color: var(--muted); font-size: clamp(12px, 1.02vw, 15px); line-height: 1.42; }
+    .cause-row:first-child span { color: #fff; font-weight: 800; }
+    .stoploss { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(36px, 6vw, 90px); align-items: start; }
+    .stoploss-rule { padding-left: 32px; border-left: 9px solid var(--rust); }
+    .stoploss-rule strong { display: block; color: var(--rust); font-family: Georgia, serif; font-size: clamp(46px, 6vw, 86px); line-height: 1; }
+    .stoploss-rule p { margin: 18px 0 0; color: var(--muted); font-size: clamp(15px, 1.35vw, 20px); line-height: 1.65; }
+    .stoploss-list { display: grid; gap: 12px; }
+    .stoploss-item { display: grid; grid-template-columns: 122px 1fr; gap: 18px; padding: 14px 0; border-top: 3px solid rgba(23,63,49,.25); }
+    .stoploss-item b { color: var(--green-dark); font-size: clamp(15px, 1.3vw, 20px); }
+    .stoploss-item span { color: var(--muted); font-size: clamp(13px, 1.08vw, 16px); line-height: 1.5; }
+    .operator-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 34px; }
+    .operator { display: grid; grid-template-columns: 52px 1fr; gap: 14px; padding: 16px 0; border-top: 3px solid rgba(23,63,49,.24); }
+    .operator b { display: grid; place-items: center; width: 48px; height: 48px; background: var(--green-dark); color: #fff; font-size: 24px; }
+    .operator span { color: var(--muted); font-size: clamp(13px, 1.08vw, 16px); line-height: 1.45; }
+    .research-funnel { display: grid; gap: 12px; max-width: 980px; margin: 0 auto; }
+    .funnel-line { margin: 0 auto; padding: 12px 20px; text-align: center; color: #fff; background: var(--green-dark); font-weight: 850; font-size: clamp(14px, 1.3vw, 19px); }
+    .funnel-line:nth-child(1) { width: 100%; }
+    .funnel-line:nth-child(2) { width: 88%; background: #2f725a; }
+    .funnel-line:nth-child(3) { width: 76%; background: #51826e; }
+    .funnel-line:nth-child(4) { width: 64%; background: #9a722f; }
+    .funnel-line:nth-child(5) { width: 52%; background: var(--rust); }
+    .funnel-decision { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: center; margin-top: 18px; text-align: center; color: var(--muted); font-weight: 750; }
+    .funnel-decision strong { color: var(--green-dark); font-size: clamp(18px, 1.8vw, 26px); }
 
     .tool-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 82px); align-items: center; }
     .tool-name { padding: 28px 0; border-top: 7px solid var(--green); }
@@ -632,7 +669,8 @@
     .progress { position: fixed; left: 0; bottom: 0; z-index: 30; height: 5px; background: var(--amber); transition: width .25s ease; }
 
     @media (max-width: 900px) {
-      .split, .split.equal, .stats, .tree, .gram, .audience, .tool-layout { grid-template-columns: 1fr; }
+      .split, .split.equal, .stats, .tree, .gram, .audience, .tool-layout, .problem-grid, .stoploss, .operator-grid { grid-template-columns: 1fr; }
+      .cause-row { grid-template-columns: .55fr 1fr 1fr; }
       .pipeline, .pipeline.tail { grid-template-columns: repeat(2, 1fr); }
       .pipe-step::after { display: none; }
       .burden, .takeaway-map, .assets { grid-template-columns: repeat(2, 1fr); }
@@ -650,6 +688,8 @@
       .seq-item::before, .loop-step::before { display: none; }
       .help { display: none; }
       .observer-scene { min-height: 620px; }
+      .cause-table { min-width: 760px; }
+      .content:has(.cause-table) { overflow-x: auto; }
       .observer-choices { flex-direction: column; gap: 10px; align-items: stretch; }
       .observer-choice { width: 100%; }
       .thought-bubble { width: 88%; }
@@ -666,130 +706,135 @@
   </style>
 </head>
 <body>
-<main class="deck" aria-label="研究生个人论文流水线演示文稿">
+<main class="deck" aria-label="论文选题方法论演示文稿">
 
   <section class="slide active">
-    <div class="kicker">Graduate Research Workflow</div>
+    <div class="kicker">Research Topic Selection</div>
     <div class="content">
-      <h1>研究生的个人<br><span class="accent">论文流水线</span></h1>
+      <h1>论文选题的<br><span class="accent">方法论</span></h1>
       <div class="title-rule"></div>
-      <p class="lead">从发现问题到可行性验证：如何提前建立可复用、可检查、可迭代的科研工作流</p>
-      <div class="title-meta"><span><b>关注重心</b> 找问题</span><span><b>适用阶段</b> 研究生早期</span><span><b>核心方法</b> 远观与近观</span></div>
+      <p class="lead">用多尺度观察、结构化变形和可行性筛选，把模糊方向收敛为能够完成的研究问题</p>
+      <div class="title-meta"><span><b>研究起点</b> 文献观察</span><span><b>核心方法</b> 远观与近观</span><span><b>决策终点</b> 可行课题</span></div>
     </div>
-    <div class="footer"><span>个人科研方法整理</span><span class="slide-no">01 / 17</span></div>
+    <div class="footer"><span>研究问题发现与选题止损</span><span class="slide-no">01</span></div>
   </section>
 
   <section class="slide">
     <div class="kicker">适合人群</div>
     <div class="content audience">
       <div class="audience-main">
-        <h2>正在寻找研究方向的研究生</h2>
-        <p class="lead">尤其适合刚开始读文献、准备开题，或者已经积累了一些论文，却仍然不知道怎样从文献中提出研究问题的人。</p>
+        <h2>已经开始阅读，却仍未把方向收敛为课题</h2>
+        <p class="lead">你已经掌握部分领域知识，但候选题仍然模糊、过多、过难，或者缺少可信的判断标准。</p>
       </div>
       <div class="audience-side">
-        <div><b>硕士与博士早期</b><span>需要形成稳定的选题、阅读、实验与写作节奏。</span></div>
-        <div><b>准备科研的本科生</b><span>同样可以提前练习，只是通常没有持续产出论文的迫切需求。</span></div>
-        <div><b>已有方向但缺少问题</b><span>研究方向已经确定，脑中也有模糊设计，需要把它收紧为可验证的问题。</span></div>
+        <div><b>硕士、博士早期</b><span>需要在开题、毕业和资源约束下建立稳定的选题节奏。</span></div>
+        <div><b>准备科研的本科生</b><span>希望练习从阅读文献到提出问题的完整过程。</span></div>
+        <div><b>已有方向但缺少问题</b><span>方向已经确定，需要把模糊设想改写为可验证的问题。</span></div>
       </div>
     </div>
-    <div class="footer"><span>见简介：从“我想研究什么”走到“我能回答什么”</span><span class="slide-no">02 / 20</span></div>
+    <div class="footer"><span>从“我想研究什么”走到“我能回答什么”</span><span class="slide-no">02</span></div>
   </section>
 
   <section class="slide">
-    <div class="kicker">问题起始</div>
-    <div class="content split">
-      <div>
-        <h2>“论文流水线”<br>是怎么进入视野的</h2>
-        <p class="lead">研究生开始接触论文，通过网页、Bilibili、抖音等渠道搜集经验。一次偶然机会，“论文流水线”这个概念出现了。</p>
-      </div>
-      <div class="rule-left">
-        <div class="big-question">这种感觉，是否一定要到博士或更高阶段才能感知？</div>
-        <p style="margin-top:22px">门槛并不高。本科生也可以实践，只是研究生通常有更明确的论文产出与毕业需求，因此更有必要提前建立个人工作流。</p>
-        <div class="marginalia">初衷：不是追求机械量产，而是减少每次从零开始。</div>
-      </div>
-    </div>
-    <div class="footer"><span>从零散经验到流程意识</span><span class="slide-no">02 / 17</span></div>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">整条流水线</div>
+    <div class="kicker">典型困境</div>
     <div class="content">
-      <h2>前端主动决策，后端沿轨道执行</h2>
+      <h2>选题阶段最常见的三种停滞</h2>
+      <div class="problem-grid">
+        <div class="problem-card"><div class="index">01</div><h3>文献一直看不完</h3><p>阅读不断增加，研究分类、候选问题和淘汰理由却没有同步形成。信息没有转化为判断。</p></div>
+        <div class="problem-card"><div class="index">02</div><h3>总觉得创新不够</h3><p>把创新理解为前人从未想到，忽略新对象、新条件、新组合、新证据和新解释也能形成贡献。</p></div>
+        <div class="problem-card"><div class="index">03</div><h3>课题太难想放弃</h3><p>研究尺度、技术链或资源需求超出当前能力。困难来自问题没有拆小，不代表整个方向不能做。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>先识别卡点，再选择对应的调整动作</span><span class="slide-no">03</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">卡题根源</div>
+    <div class="content">
+      <h2>题目迟迟不能确认，通常来自五类问题</h2>
+      <div class="cause-table">
+        <div class="cause-row"><span>根源</span><span>常见表现</span><span>真正缺少的东西</span></div>
+        <div class="cause-row"><b>信息问题</b><span>了解太少无从开始，读得太多又无法选择</span><span>领域地图、代表论文坐标和明确的阅读边界</span></div>
+        <div class="cause-row"><b>观察问题</b><span>只能复述作者做了什么，发现不了可研究的问题</span><span>对假设、机制、变量、局限和失效条件的拆解</span></div>
+        <div class="cause-row"><b>判断问题</b><span>每个方向都像能做，也都觉得不够新</span><span>统一的新颖性、价值、资源与可验证性标准</span></div>
+        <div class="cause-row"><b>尺度问题</b><span>题目过大无法落地，或改动太小缺少意义</span><span>对象、缺陷、方法、条件和证据的合理边界</span></div>
+        <div class="cause-row"><b>决策问题</b><span>追求完美、频繁换题、害怕失败实验</span><span>固定评审节点、备选路线和明确的停止条件</span></div>
+      </div>
+    </div>
+    <div class="footer"><span>发现不了问题，不一定是文献读得不够</span><span class="slide-no">04</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">时间止损</div>
+    <div class="content">
+      <h2>止损的对象是无边界投入</h2>
+      <div class="stoploss">
+        <div class="stoploss-rule"><strong>4 个节点</strong><p>提前规定何时停止阅读、停止包装想法、停止死磕复现，以及何时把课题降级。具体期限应结合学制、资源和基础设定。</p></div>
+        <div class="stoploss-list">
+          <div class="stoploss-item"><b>阅读止损</b><span>到达预设周期仍写不出候选问题，暂停扩展阅读，转为分类、比较和提问。</span></div>
+          <div class="stoploss-item"><b>创新止损</b><span>多轮修改后仍说不清解决什么缺陷，暂时淘汰该想法，不再继续包装。</span></div>
+          <div class="stoploss-item"><b>复现止损</b><span>超过预设期限仍无法跑通基线，记录原因，换可靠基线或缩小验证范围。</span></div>
+          <div class="stoploss-item"><b>资源止损</b><span>关键数据、算力或专家长期无法获得，立即调整对象、方法或评价方式。</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>每次投入前先写下期限、交付物与退出条件</span><span class="slide-no">05</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">容易忽略的困境</div>
+    <div class="content">
+      <h2>另外三种表现，同样会让选题停滞</h2>
+      <div class="problem-grid">
+        <div class="problem-card"><div class="index">04</div><h3>读完却发现不了问题</h3><p>阅读停留在“作者做了什么”，没有追问为什么有效、在什么条件下失效，以及哪些部分尚未验证。</p></div>
+        <div class="problem-card"><div class="index">05</div><h3>感觉别人已经做完了</h3><p>检索停留在顶层主题，没有继续细分对象、边界条件、语言、任务、场景和评价层级。</p></div>
+        <div class="problem-card"><div class="index">06</div><h3>导师方向无法落地</h3><p>方向只规定领域边界，没有规定具体问题。还需要从分类树进入代表论文，再生成多个候选题。</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>研究方向仍需拆成能够比较的候选课题</span><span class="slide-no">06</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">核心方法</div>
+    <div class="content">
+      <h2>从文献观察到可行课题</h2>
       <div class="pipeline">
-        <div class="pipe-step"><b>需求与约束</b><span>时间、毕业、方向、资源</span></div>
-        <div class="pipe-step"><b>选题池</b><span>记录候选题与淘汰理由</span></div>
-        <div class="pipe-step"><b>文献与现状</b><span>建立领域地图与坐标</span></div>
-        <div class="pipe-step"><b>研究问题</b><span>本文重点：找出值得回答的问题</span></div>
-        <div class="pipe-step"><b>研究设计</b><span>明确证据、变量与对照</span></div>
+        <div class="pipe-step"><b>文献观察</b><span>综述与代表论文</span></div>
+        <div class="pipe-step"><b>研究地图</b><span>类别、边界与坐标</span></div>
+        <div class="pipe-step"><b>生成差异</b><span>改变对象、方法或条件</span></div>
+        <div class="pipe-step"><b>候选课题</b><span>保留多个可比较问题</span></div>
+        <div class="pipe-step"><b>可行性验证</b><span>价值、资源与证据</span></div>
       </div>
       <div class="pipeline tail">
-        <div class="pipe-step"><b>数据与资源</b></div>
-        <div class="pipe-step"><b>基线复现与实验</b></div>
-        <div class="pipe-step"><b>结果分析</b></div>
-        <div class="pipe-step"><b>论文写作</b></div>
-        <div class="pipe-step"><b>投稿、修改与沉淀</b></div>
+        <div class="pipe-step"><b>不可行</b><span>缩小问题</span></div>
+        <div class="pipe-step"><b>切换方法</b><span>更换验证路径</span></div>
+        <div class="pipe-step"><b>再次检查</b><span>进入下一轮筛选</span></div>
+        <div class="pipe-step"><b>确认课题</b><span>问题与资源匹配</span></div>
+        <div class="pipe-step"><b>进入实验</b><span>基线与研究设计</span></div>
       </div>
-      <div class="phase-labels"><div>前五部分：主动判断更多</div><div>后续环节：执行与反馈更多</div></div>
+      <div class="phase-labels"><div>前半段：扩大并组织问题空间</div><div>后半段：筛选、调整并逐步收敛</div></div>
     </div>
-    <div class="footer"><span>可复用、可检查、可迭代</span><span class="slide-no">03 / 17</span></div>
+    <div class="footer"><span>多尺度观察、结构化变形、可行性筛选、迭代收敛</span><span class="slide-no">07</span></div>
   </section>
 
   <section class="slide">
-    <div class="kicker">前五部分为什么难</div>
+    <div class="kicker">创新操作</div>
     <div class="content">
-      <h2>“麻烦”或“折磨”背后，是四种真实负担</h2>
-      <div class="burden">
-        <div class="burden-item"><b>决策密度高</b><p>需要连续作出方向性判断。</p></div>
-        <div class="burden-item"><b>不确定性高</b><p>通常没有唯一正确答案。</p></div>
-        <div class="burden-item"><b>试错成本高</b><p>前期偏差会在后期被放大。</p></div>
-        <div class="burden-item"><b>认知负荷高</b><p>要同时理解文献、资源、方法与评价。</p></div>
+      <h2>把“灵机一动”拆成九种可执行变形</h2>
+      <div class="operator-grid">
+        <div class="operator"><b>加</b><span>增加变量、约束、模块、数据源或评价指标</span></div>
+        <div class="operator"><b>减</b><span>删除复杂环节，研究更轻量或成本更低的方法</span></div>
+        <div class="operator"><b>换</b><span>替换模型、公式、算法、数据集或应用对象</span></div>
+        <div class="operator"><b>组</b><span>组合已有方法，形成新的结构或研究流程</span></div>
+        <div class="operator"><b>比</b><span>横向比较、消融分析或检验适用边界</span></div>
+        <div class="operator"><b>迁</b><span>迁移到新语言、新任务、新领域或新场景</span></div>
+        <div class="operator"><b>反</b><span>验证评价器、验证器或研究假设是否可靠</span></div>
+        <div class="operator"><b>分</b><span>把笼统问题细分到特定对象、条件或层级</span></div>
+        <div class="operator"><b>升</b><span>从个别方法上升为框架、解释或分类体系</span></div>
       </div>
-      <div class="callout">需求与约束、选题池、文献与现状可以使用 AI 辅助。真正难以外包的，仍是<strong>研究问题</strong>与<strong>研究设计</strong>。</div>
+      <div class="callout">每次变形都要补上四个答案：为什么改变、解决什么问题、为什么可能有效、如何验证。</div>
     </div>
-    <div class="footer"><span>也可以概括为“研究瓶颈”</span><span class="slide-no">04 / 17</span></div>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">研究问题与研究设计</div>
-    <div class="content">
-      <h2>如果必须分先后，研究问题更靠前</h2>
-      <div class="balance">
-        <div class="balance-side"><span class="num">Q</span><h3>研究问题</h3><p>决定要证明什么，也决定数据、指标和结果究竟意味着什么。</p></div>
-        <div class="versus">相互修正</div>
-        <div class="balance-side"><span class="num">D</span><h3>研究设计</h3><p>决定能否用可信的证据回答这个问题。</p></div>
-      </div>
-      <div class="cycle"><span>初步问题</span><i>→</i><span>初步设计</span><i>→</i><span>可行性检查</span><i>→</i><span>缩小或修正问题</span><i>→</i><span>完善设计</span></div>
-    </div>
-    <div class="footer"><span>本文把“发现问题”作为关注重心</span><span class="slide-no">05 / 17</span></div>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">小插曲</div>
-    <div class="content">
-      <h2>“实验做完，一周写完论文”只描述了执行后段</h2>
-      <div class="sequence">
-        <div class="seq-item"><b>数据或任务定义</b><span>实验必须有可用、可信的数据支撑。</span></div>
-        <div class="seq-item"><b>实验实施</b><span>基线、对照和消融形成证据。</span></div>
-        <div class="seq-item"><b>结果分析</b><span>判断结果支持什么，不支持什么。</span></div>
-        <div class="seq-item"><b>集中写作</b><span>条件成熟时，主体可以较快完成。</span></div>
-      </div>
-      <div class="warning-line">关键点在顺序。文献、问题定义、实验方案与失败记录仍应同步整理，否则最后一周是在重新回忆研究。</div>
-    </div>
-    <div class="footer"><span>数据 → 实验 → 分析 → 写作</span><span class="slide-no">06 / 17</span></div>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">为什么找问题值得成为重点</div>
-    <div class="content">
-      <h2>读了很多文献，不等于形成了选题判断</h2>
-      <div class="stats">
-        <div class="stat"><strong>92%+</strong><p>被调查者认为，查阅文献占总科研时间的一半以上。</p></div>
-        <div class="stat"><strong>65%+</strong><p>研究生认为，自己经常进行“无效文献调研”。</p></div>
-        <div class="stat note"><strong>案例，不是普遍定律</strong><p>数据来自单一院系、329 人调查，不宜外推为全体研究生。它提示的核心困境是：文献阅读需要转化为结构化认识。</p></div>
-      </div>
-      <p class="source">参考：<a href="https://www.doc88.com/p-69439116020692.html" target="_blank" rel="noopener">道客巴巴页面</a>；李旭等，《研究生科研第一课：快速进行文献检索与阅读》；<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=2" target="_blank" rel="noopener">Bilibili 视频第 2 部分“七分错误三分解”</a>。</p>
-    </div>
-    <div class="footer"><span>每轮阅读都应服务于明确目标</span><span class="slide-no">07 / 17</span></div>
+    <div class="footer"><span>变形只负责产生候选问题，不自动等于创新</span><span class="slide-no">08</span></div>
   </section>
 
   <section class="slide">
@@ -966,20 +1011,6 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">想象力训练</div>
-    <div class="content">
-      <h2>科研想象力，是改变默认前提后还能补上检验条件</h2>
-      <div class="thought">
-        <div class="thought-block"><div class="q">“你就是我，我就是你。”<br>能否同意，并给出理由？</div><p>练习改变身份、角色或观察尺度，而不是立即用常识否定。</p></div>
-        <div class="thought-block"><div class="q">围着组会桌子走一圈，<br>能否说自己走的是直线？</div><p>如果观察者是一只沿桌边运动的蚂蚁，每一段局部路径都可以是直线。</p></div>
-      </div>
-      <div class="three-actions"><div>1. 识别没有明说的默认假设</div><div>2. 改变观察尺度或参照系</div><div>3. 给新解释补上可检验条件</div></div>
-      <p class="source">灵感参考：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=3" target="_blank" rel="noopener">Bilibili 视频，第 3 部分</a></p>
-    </div>
-    <div class="footer"><span>只有第三步完成，脑洞才可能成为研究问题</span><span class="slide-no">12 / 17</span></div>
-  </section>
-
-  <section class="slide">
     <div class="kicker">远观示例</div>
     <div class="content">
       <h2>大模型 + 可靠性验证：第一层没想法，就继续下钻</h2>
@@ -1043,51 +1074,28 @@
   </section>
 
   <section class="slide">
-    <div class="kicker">最终沉淀</div>
+    <div class="kicker">方法论模型</div>
     <div class="content">
-      <h2>“下一篇更快”来自研究资产，而不是机械复制</h2>
-      <div class="assets">
-        <div class="asset"><b>文献库</b><span>分类、批注与代表论文坐标</span></div>
-        <div class="asset"><b>选题池</b><span>候选问题与淘汰理由</span></div>
-        <div class="asset"><b>问题模板</b><span>可行性检查表与判断标准</span></div>
-        <div class="asset"><b>数据资产</b><span>版本、划分方式与处理脚本</span></div>
-        <div class="asset"><b>实验资产</b><span>基线代码、环境与日志</span></div>
-        <div class="asset"><b>失败记录</b><span>负结果、异常与决策依据</span></div>
-        <div class="asset"><b>写作资产</b><span>图表、结构与投稿检查清单</span></div>
-        <div class="asset"><b>复盘</b><span>有效做法与无效做法</span></div>
+      <h2>候选问题经过筛选，逐步收敛为可行课题</h2>
+      <div class="research-funnel">
+        <div class="funnel-line">远观：构建领域研究地图</div>
+        <div class="funnel-line">近观：拆解具体论文</div>
+        <div class="funnel-line">结构化变形：加、减、换、组、比、迁、反、分、升</div>
+        <div class="funnel-line">生成多个候选课题</div>
+        <div class="funnel-line">新颖性、价值、技术、资源与实验筛选</div>
       </div>
-      <div class="closing">把有效做法、失败原因和判断标准留下来，下一次研究才不必从零开始。</div>
+      <div class="funnel-decision"><span><strong>不可行</strong><br>切换问题或方法，再次评估</span><span>◆</span><span><strong>可行</strong><br>确认基线，进入实验设计</span></div>
     </div>
-    <div class="footer"><span>流水线最终沉淀为可复用的研究资产</span><span class="slide-no">18 / 20</span></div>
+    <div class="footer"><span>筛选不是一次判断，而是带反馈的循环</span><span class="slide-no">18</span></div>
   </section>
 
   <section class="slide">
-    <div class="kicker">工具推荐</div>
+    <div class="kicker">总结</div>
     <div class="content">
-      <h2>工具负责减少重复劳动</h2>
-      <div class="tool-layout">
-        <div>
-          <div class="tool-name"><b>Zotero</b><span>管理文献、分类、批注与引用；可配合 zotero-pdf2zh 进行中英翻译辅助。</span></div>
-          <div class="tool-name"><b>AI Agent</b><span>常用于检索辅助、归纳比较、代码与实验支持。工具清单仍可继续补充。</span></div>
-        </div>
-        <div class="tool-principle"><strong>邪修？不存在的！</strong><p>AI 和插件可以帮助搜索、翻译、整理与执行，但研究问题、证据标准和最终判断仍由研究者负责。</p></div>
-      </div>
+      <div class="final-word">远观确定研究空间，<br><span class="soft">近观找到可操作问题，</span><br>筛选让问题真正能够完成。</div>
+      <p class="wish">关键不在等待灵机一动，而在把灵感转化为可解释、可检索、可实验、可证伪的研究问题。</p>
     </div>
-    <div class="footer"><span>常用工具，待补充</span><span class="slide-no">19 / 20</span></div>
-  </section>
-
-  <section class="slide">
-    <div class="kicker">最后的话</div>
-    <div class="content">
-      <div class="final-word">研究问题是方向盘，研究设计是导航。<br><span class="soft">远观与近观反复切换，</span><br>灵感才会成为能完成的研究。</div>
-      <p class="wish">看到这里，希望对你有所帮助。祝好！</p>
-      <div class="refs">
-        <span>参考 1：<a href="https://www.doc88.com/p-69439116020692.html" target="_blank" rel="noopener">https://www.doc88.com/p-69439116020692.html</a></span>
-        <span>参考 2：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=2" target="_blank" rel="noopener">Bilibili BV1NCaR6LEAm，第 2 部分</a></span>
-        <span>参考 3：<a href="https://www.bilibili.com/video/BV1NCaR6LEAm/?p=3" target="_blank" rel="noopener">Bilibili BV1NCaR6LEAm，第 3 部分</a></span>
-      </div>
-    </div>
-    <div class="footer"><span>Q &amp; A</span><span class="slide-no">20 / 20</span></div>
+    <div class="footer"><span>论文选题的方法论</span><span class="slide-no">19</span></div>
   </section>
 
 </main>
